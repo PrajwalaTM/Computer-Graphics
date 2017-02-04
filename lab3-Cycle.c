@@ -1,3 +1,5 @@
+//Program to draw a stick man riding a cycle using basic 2D transformations such as 
+//translation, rotation and scaling.
 #include <stdio.h>
 #include <stdlib.h>
 #include <graphics.h>

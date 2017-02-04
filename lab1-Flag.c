@@ -1,3 +1,6 @@
+//Program to draw the national flag by using DDA line drawing algorithm and 
+//Polar circle drawing algorithm.
+
 #include <stdio.h>
 #include <graphics.h>
 #include <math.h>

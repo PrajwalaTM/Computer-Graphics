@@ -1,3 +1,6 @@
+// Program to draw a stick man using Bresenham’s line drawing and 
+// mid-point circle drawing algorithm.
+
 #include <stdio.h>
 #include <graphics.h>
 #include <math.h>

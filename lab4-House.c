@@ -1,33 +1,16 @@
-//Program to perform 2D transformations like translation,rotation and scaling for a pentagon
+// Program to perform 2D transformations- reflection and shear for a house 
 
+#include <graphics.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <graphics.h>
 #include <math.h>
-#define PI 3.14159
-
+# define PI 3.142
 void swap(int *a,int *b)
 {
     int temp = *a;
     *a = *b;
     *b = temp;
 }
-
-
-
-
-void pixel(int xc, int yc, int x, int y,int color)
-{
-     	putpixel(xc+x,yc+y,color);
-        putpixel(xc+y,yc+x,color);
-        putpixel(xc-y,yc+x,color);
-        putpixel(xc-x,yc+y,color);
-        putpixel(xc-x,yc-y,color);
-        putpixel(xc-y,yc-x,color);
-        putpixel(xc+y,yc-x,color);
-        putpixel(xc+x,yc-y,color);
-}
-
 
 void bresLine(int x1,int y1,int x2,int y2)
 {
@@ -39,7 +22,7 @@ void bresLine(int x1,int y1,int x2,int y2)
     int y=y1;
 
     if (!dx) 
-	{ //vertical line special case
+   { //vertical line special case
         if (dy > 0) 
         {
             y= y1;  
@@ -165,54 +148,103 @@ void bresLine(int x1,int y1,int x2,int y2)
         }
     }
 }
+void reflect(int x1,int y1,int x2,int y2, int choice)
+{
+   
+   if(choice==1)
+   {
+       //Reflection about y=310
+    line(130,310,270,310);
+    line(x1,620-y1,x2,620-y2);
+   }
+   else if(choice==2)
+   {
+       //Reflection about x=300
+      line(300,120,300,400); 
+     line(600-x1,y1,600-x2,y2);   
+   }
+}
+
+void shear(int x1,int y1,int x2,int y2,int choice)
+{
+ if(choice==1)
+   {
+      //X shear
+    line(x1+tan(PI/6)*(y1),y1,x2+tan(PI/6)*(y2),y2);
+   }
+   else if(choice==2)
+   {
+       //Y shear
+      line(x1,y1-tan(PI/6)*x1,x2,y2-tan(PI/6)*x2);
+     line(600-x1,y1,600-x2,y2);   
+   }  
+}
+
 
 int main() {
-	int gd=DETECT,gm;
-	initgraph(&gd,&gm,NULL);
-	
-	int x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,r,s,tx,ty,an;r=50;
-	s=2;an=90;
-	x1=100+r*cos(0*PI/180);
-	y1=100+r*sin(0*PI/180);
-    x2=100+r*cos(72*PI/180);
-    y2=100+r*sin(72*PI/180);
-    x3=100+r*cos(144*PI/180);
-    y3=100+r*sin(144*PI/180);
-    x4=100+r*cos(216*PI/180);
-    y4=100+r*sin(216*PI/180);
-    x5=100+r*cos(288*PI/180);
-    y5=100+r*sin(288*PI/180);
-	line(x1,y1,x2,y2);
-	line(x2,y2,x3,y3);
-	line(x3,y3,x4,y4);
-	line(x4,y4,x5,y5);
-	line(x5,y5,x1,y1);
-	//bresLine(200,200,250,200);
-	//Scaling
-	line(x1*s,y1*s,x2*s,y2*s);
-	line(x2*s,y2*s,x3*s,y3*s);
-	line(x3*s,y3*s,x4*s,y4*s);
-	line(x4*s,y4*s,x5*s,y5*s);
-	line(x5*s,y5*s,x1*s,y1*s);
-	//Translation
-    tx=20;
-    ty=30;
-	x1=100+r*cos(0*PI/180+an)+tx;
-	y1=100+r*sin(0*PI/180+an)+ty;
-    x2=100+r*cos(72*PI/180+an)+tx;
-    y2=100+r*sin(72*PI/180+an)+ty;
-    x3=100+r*cos(144*PI/180+an)+tx;
-    y3=100+r*sin(144*PI/180+an)+ty;
-    x4=100+r*cos(216*PI/180+an)+tx;
-    y4=100+r*sin(216*PI/180+an)+ty;
-    x5=100+r*cos(288*PI/180+an)+tx;
-    y5=100+r*sin(288*PI/180+an)+ty;
-    line(x1,y1,x2,y2);
-	line(x2,y2,x3,y3);
-	line(x3,y3,x4,y4);
-	line(x4,y4,x5,y5);
-	line(x5,y5,x1,y1);
-	getch();
-	closegraph();
-	return 0;
+   int gd = DETECT, gm,choice;
+   printf("Enter the axis 1.X axis 2.Y axis");
+   scanf("%d",&choice);
+   initgraph(&gd, &gm, "X:\\TC\\BGI");
+   
+   //Draw the house
+   bresLine(150,200,250,200);
+   bresLine(150,200,150,300);
+   bresLine(150,300,250,300);
+   bresLine(250,200,250,300); 
+   line(200,150,150,200);
+   line(200,150,250,200);
+   line(190,300,190,260);
+   line(210,260,190,260);
+   line(210,260,210,300);
+   line(160,230,160,250);
+   line(160,250,180,250);
+   line(160,230,180,230);
+   line(180,230,180,250);
+   line(220,230,240,230);
+   line(240,230,240,250);
+   line(240,250,220,250);
+   line(220,250,220,230);
+
+  //Reflection about the chosen axis
+   reflect(150,200,250,200,choice);
+   reflect(150,200,150,300,choice);
+   reflect(150,300,250,300,choice);
+   reflect(250,200,250,300,choice); 
+   reflect(200,150,150,200,choice);
+   reflect(200,150,250,200,choice);
+   reflect(190,300,190,260,choice);
+   reflect(210,260,190,260,choice);
+   reflect(210,260,210,300,choice);
+   reflect(160,230,160,250,choice);
+   reflect(160,250,180,250,choice);
+   reflect(160,230,180,230,choice);
+   reflect(180,230,180,250,choice);
+   reflect(220,230,240,230,choice);
+   reflect(240,230,240,250,choice);
+   reflect(240,250,220,250,choice);
+   reflect(220,250,220,230,choice);
+   
+  //Shear about the chosen axis
+   shear(150,200,250,200,choice);
+   shear(150,200,150,300,choice);
+   shear(150,300,250,300,choice);
+   shear(250,200,250,300,choice); 
+   shear(200,150,150,200,choice);
+   shear(200,150,250,200,choice);
+   shear(190,300,190,260,choice);
+   shear(210,260,190,260,choice);
+   shear(210,260,210,300,choice);
+   shear(160,230,160,250,choice);
+   shear(160,250,180,250,choice);
+   shear(160,230,180,230,choice);
+   shear(180,230,180,250,choice);
+   shear(220,230,240,230,choice);
+   shear(240,230,240,250,choice);
+   shear(240,250,220,250,choice);
+   shear(220,250,220,230,choice);
+
+   getch();
+   closegraph();
+   return 0;
 }

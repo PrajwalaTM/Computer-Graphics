@@ -1,3 +1,4 @@
+// Sample program to test C graphics library by drawing a heart and filling it with colors 
 
 #include<stdio.h>
 #include<graphics.h>
