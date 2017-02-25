@@ -1,0 +1,1 @@
+/* Program to clip a portion of a character.*/
